@@ -1,39 +1,592 @@
 
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>HSS Sun Salutation Marathon 2026</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
   <style>
+    /* CSS Reset & Base Styles */
+    :root {
+      --color-deep-blue: #0d3b66;
+      --color-sky-blue: #2a6f97;
+      --color-sun-yellow: #ffc300;
+      --color-sun-orange: #fb8500;
+      --color-light-text: #f8f9fa;
+      --color-dark-text: #343a40;
+      --color-glass-bg: rgba(255, 255, 255, 0.1);
+      --color-glass-border: rgba(255, 255, 255, 0.2);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
     body {
       font-family: 'Poppins', sans-serif;
+      background-image: linear-gradient(to bottom, var(--color-deep-blue), var(--color-sun-orange));
+      color: var(--color-light-text);
+      line-height: 1.6;
+    }
+
+    /* General Utilities */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    section {
+      padding: 6rem 0;
+    }
+
+    h1, h2, h3, h4 {
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    h2 { font-size: 2.5rem; }
+    h3 { font-size: 2rem; color: var(--color-sun-yellow); margin-bottom: 2rem; text-align: center; }
+    
+    /* Header & Navigation */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      background: rgba(13, 59, 102, 0.7);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 70px;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--color-sun-yellow);
+    }
+    
+    .nav-links {
+      display: flex;
+      list-style: none;
+      align-items: center;
+    }
+
+    .nav-links li {
+      margin-left: 25px;
+    }
+
+    .nav-links a {
+      color: var(--color-light-text);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--color-sun-yellow);
+    }
+
+    .nav-links a.button {
+      background-color: var(--color-sun-orange);
+      color: white;
+      padding: 8px 20px;
+      border-radius: 50px;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .nav-links a.button:hover {
+      background-color: #e07500;
+      color: white;
+      transform: scale(1.05);
+    }
+
+    /* Hero Section */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    #hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      margin-bottom: 1rem;
+    }
+    #hero h1 span { color: var(--color-sun-yellow); }
+
+    #hero p {
+      font-size: 1.25rem;
+      max-width: 600px;
+      margin: 0 auto 2rem;
+      color: #e9ecef;
+    }
+
+    #countdown {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      background: var(--color-glass-bg);
+      backdrop-filter: blur(5px);
+      padding: 2rem;
+      border-radius: 1.5rem;
+      border: 1px solid var(--color-glass-border);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+    }
+
+    #countdown > div {
+      text-align: center;
+    }
+
+    #countdown span {
+      display: block;
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: 700;
+      color: var(--color-sun-yellow);
+    }
+
+    #countdown p {
+      font-size: 1rem;
+      margin: 0;
+    }
+
+    /* About Section */
+    #about p {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+      font-size: 1.1rem;
+    }
+    #about {
+      background: rgba(0,0,0,0.15);
+    }
+
+    /* Cards (Used for Schedule & Benefits) */
+    .card-grid {
+      display: grid;
+      gap: 2rem;
+    }
+
+    .card {
+      background: var(--color-glass-bg);
+      backdrop-filter: blur(10px);
+      padding: 2rem;
+      border-radius: 1rem;
+      border: 1px solid var(--color-glass-border);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease;
+    }
+    .card:hover {
+        transform: translateY(-5px);
+    }
+    
+    .card h4 {
+        color: var(--color-sun-orange);
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    /* Schedule Section */
+    #schedule .card-grid {
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+    #schedule ul {
+        list-style: none;
+        margin-top: 1rem;
+    }
+    #schedule li {
+        display: flex;
+        align-items: center;
+        margin-bottom: 0.5rem;
+    }
+    #schedule i {
+        color: var(--color-sun-yellow);
+        margin-right: 0.75rem;
+    }
+    #schedule .card-button {
+      display: inline-block;
+      margin-top: 1rem;
+      background-color: var(--color-sun-orange);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      text-decoration: none;
+      text-align: center;
+      transition: background-color 0.3s;
+    }
+    #schedule .card-button:hover {
+        background-color: #e07500;
+    }
+    
+    /* Benefits Section */
+    #benefits {
+        background: rgba(0,0,0,0.15);
+    }
+    #benefits .card-grid {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        text-align: center;
+    }
+    #benefits .icon-wrapper {
+        background: var(--color-sun-orange);
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto 1rem;
+    }
+    #benefits h4 {
+        color: var(--color-sun-orange);
+    }
+
+    /* RSVP Form */
+    #rsvp-form-container {
+      max-width: 600px;
+      margin: 0 auto;
+      background: var(--color-glass-bg);
+      backdrop-filter: blur(10px);
+      padding: 2.5rem;
+      border-radius: 1rem;
+      border: 1px solid var(--color-glass-border);
+    }
+    
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 0.75rem;
+      border-radius: 5px;
+      border: 1px solid var(--color-glass-border);
+      background: rgba(0,0,0,0.2);
+      color: var(--color-light-text);
+      font-size: 1rem;
+    }
+    
+    .form-group select option {
+        background: var(--color-deep-blue);
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px var(--color-sun-orange);
+    }
+    
+    .submit-btn {
+      width: 100%;
+      padding: 1rem;
+      border: none;
+      border-radius: 5px;
+      background: var(--color-sun-orange);
+      color: white;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    
+    .submit-btn:hover {
+      background: #e07500;
+    }
+    
+    #form-success-message {
+        text-align: center;
+        padding: 2rem;
+    }
+    #form-success-message h4 {
+        color: var(--color-sun-yellow);
+        font-size: 1.5rem;
+    }
+
+    /* Footer */
+    footer {
+      background: rgba(13, 59, 102, 0.7);
+      text-align: center;
+      padding: 2rem 0;
+      margin-top: 4rem;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      h2 { font-size: 2rem; }
+      h3 { font-size: 1.75rem; }
+      nav { flex-direction: column; height: auto; padding: 1rem 0; }
+      .nav-links { flex-direction: column; text-align: center; width: 100%; }
+      .nav-links li { margin: 10px 0; }
+      #hero { padding-top: 120px; }
+      section { padding: 4rem 0; }
     }
   </style>
-<script type="importmap">
-{
-  "imports": {
-    "rxjs": "https://esm.sh/rxjs@^7.8.2?conditions=es2015",
-    "rxjs/operators": "https://esm.sh/rxjs@^7.8.2/operators?conditions=es2015",
-    "rxjs/ajax": "https://esm.sh/rxjs@^7.8.2/ajax?conditions=es2015",
-    "rxjs/webSocket": "https://esm.sh/rxjs@^7.8.2/webSocket?conditions=es2015",
-    "rxjs/testing": "https://esm.sh/rxjs@^7.8.2/testing?conditions=es2015",
-    "rxjs/fetch": "https://esm.sh/rxjs@^7.8.2/fetch?conditions=es2015",
-    "@angular/compiler": "https://esm.sh/@angular/compiler@^21.0.8?external=rxjs",
-    "@angular/forms": "https://esm.sh/@angular/forms@^21.0.8?external=rxjs",
-    "@angular/common": "https://esm.sh/@angular/common@^21.0.8?external=rxjs",
-    "@angular/platform-browser": "https://esm.sh/@angular/platform-browser@^21.0.8?external=rxjs",
-    "@angular/core": "https://esm.sh/@angular/core@^21.0.8?external=rxjs"
-  }
-}
-</script>
 </head>
-<body class="bg-gray-900">
-  <app-root></app-root>
-  <script type="module" src="index.tsx"></script>
+<body>
+
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">HSS SNY 2026</div>
+        <ul class="nav-links">
+          <li><a href="#about">About</a></li>
+          <li><a href="#schedule">Schedule</a></li>
+          <li><a href="#benefits">Benefits</a></li>
+          <li><a href="#rsvp" class="button">RSVP</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section id="hero">
+      <div class="container">
+        <h1><span class="highlight">Sun Salutation</span> Marathon 2026</h1>
+        <p>Join Pittsburgh in a 16-day journey of health and wellness for body, mind, and spirit.</p>
+        <div id="countdown">
+          <div><span id="days">00</span><p>Days</p></div>
+          <div><span id="hours">00</span><p>Hours</p></div>
+          <div><span id="minutes">00</span><p>Minutes</p></div>
+          <div><span id="seconds">00</span><p>Seconds</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+      <div class="container">
+        <h3>What is Surya Namaskar Yajna?</h3>
+        <p>The Surya Namaskar Yajna (SNY) is a 16-day event from January 14th to February 1st, dedicated to promoting a healthy lifestyle. Participants engage in the practice of Surya Namaskar, or Sun Salutations, a dynamic sequence of 10 yoga postures. This ancient practice is a holistic exercise that invigorates the body, calms the mind, and nurtures the spirit, fostering a sense of community and collective well-being.</p>
+      </div>
+    </section>
+
+    <!-- Schedule & Locations Section -->
+    <section id="schedule">
+      <div class="container">
+        <h3>Event Schedule & Locations</h3>
+        <div class="card-grid">
+          <div class="card">
+            <h4>Main Marathon</h4>
+            <p><strong>Saturday, Jan 24, 2026</strong></p>
+            <p>Join fellow enthusiasts at various scenic locations across Pittsburgh for a collective Sun Salutation marathon.</p>
+            <ul>
+              <li><i data-lucide="map-pin"></i> North Park</li>
+              <li><i data-lucide="map-pin"></i> Downtown Square</li>
+              <li><i data-lucide="map-pin"></i> East Community Center</li>
+              <li><i data-lucide="map-pin"></i> West Yoga Hub</li>
+              <li><i data-lucide="map-pin"></i> South Beach Plaza</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h4>Mega Community Yoga</h4>
+            <p><strong>Saturday, Jan 31, 2026</strong></p>
+            <p>A massive, guided yoga session for all skill levels at high-capacity venues. Let's practice as one community!</p>
+            <ul>
+              <li><i data-lucide="map-pin"></i> Grand Hall</li>
+              <li><i data-lucide="map-pin"></i> Convention Center</li>
+              <li><i data-lucide="map-pin"></i> University Arena</li>
+              <li><i data-lucide="map-pin"></i> City Stadium</li>
+              <li><i data-lucide="map-pin"></i> Waterfront Pavilion</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h4>Daily Online Practice</h4>
+            <p><strong>Jan 14 – Feb 1, 2026</strong></p>
+            <p>Join our free 20-minute online guided sessions to keep your practice consistent and energized.</p>
+            <ul>
+              <li><i data-lucide="clock"></i> 6:30 AM (Morning Flow)</li>
+              <li><i data-lucide="clock"></i> 6:30 PM (Evening Wind-down)</li>
+            </ul>
+            <a href="#" class="card-button">Join Now</a>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Benefits Section -->
+    <section id="benefits">
+        <div class="container">
+            <h3>Key Benefits of Sun Salutations</h3>
+            <div class="card-grid">
+                <div class="card">
+                    <div class="icon-wrapper"><i data-lucide="heart-pulse"></i></div>
+                    <h4>Improves Cardiovascular Health</h4>
+                    <p>A great cardio workout that helps maintain a healthy heart.</p>
+                </div>
+                <div class="card">
+                    <div class="icon-wrapper"><i data-lucide="shield"></i></div>
+                    <h4>Boosts Immunity</h4>
+                    <p>Enhances blood circulation, which helps in strengthening the immune system.</p>
+                </div>
+                <div class="card">
+                    <div class="icon-wrapper"><i data-lucide="brain-circuit"></i></div>
+                    <h4>Reduces Stress</h4>
+                    <p>Calms the mind, reduces anxiety, and improves concentration.</p>
+                </div>
+                <div class="card">
+                    <div class="icon-wrapper"><i data-lucide="stretch-horizontal"></i></div>
+                    <h4>Enhances Flexibility</h4>
+                    <p>Stretches and tones muscles, improving overall body flexibility and posture.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RSVP Section -->
+    <section id="rsvp">
+      <div class="container">
+        <h3>RSVP for an Event</h3>
+        <div id="rsvp-form-container">
+          <form id="event-rsvp-form">
+            <div class="form-group">
+              <label for="name">Full Name</label>
+              <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+              <label for="session">Select Session</label>
+              <select id="session" name="session" required>
+                <option value="" disabled selected>Choose an event...</option>
+                <option value="Main Marathon">Main Marathon (Jan 24)</option>
+                <option value="Community Yoga">Mega Community Yoga (Jan 31)</option>
+                <option value="Daily Online">Daily Online Practice</option>
+              </select>
+            </div>
+            <div class="form-group" id="location-group" style="display: none;">
+              <label for="location">Select Location</label>
+              <select id="location" name="location">
+                <!-- Options will be populated by JS -->
+              </select>
+            </div>
+            <button type="submit" class="submit-btn">Register</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2026 HSS Pittsburgh. All Rights Reserved.</p>
+      <p>Health for Humanity</p>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+      // --- Lucide Icons Activation ---
+      lucide.createIcons();
+
+      // --- Countdown Timer Logic ---
+      const countdownDate = new Date('2026-01-14T00:00:00').getTime();
+
+      const timerInterval = setInterval(() => {
+        const now = new Date().getTime();
+        const distance = countdownDate - now;
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        if (distance < 0) {
+          clearInterval(timerInterval);
+          document.getElementById('countdown').innerHTML = "<h2>The event has started!</h2>";
+        } else {
+          document.getElementById('days').innerText = days.toString().padStart(2, '0');
+          document.getElementById('hours').innerText = hours.toString().padStart(2, '0');
+          document.getElementById('minutes').innerText = minutes.toString().padStart(2, '0');
+          document.getElementById('seconds').innerText = seconds.toString().padStart(2, '0');
+        }
+      }, 1000);
+
+      // --- RSVP Form Logic ---
+      const rsvpForm = document.getElementById('event-rsvp-form');
+      const sessionSelect = document.getElementById('session');
+      const locationGroup = document.getElementById('location-group');
+      const locationSelect = document.getElementById('location');
+      const rsvpContainer = document.getElementById('rsvp-form-container');
+
+      const locations = {
+        'Main Marathon': ['North Park', 'Downtown Square', 'East Community Center', 'West Yoga Hub', 'South Beach Plaza'],
+        'Community Yoga': ['Grand Hall', 'Convention Center', 'University Arena', 'City Stadium', 'Waterfront Pavilion']
+      };
+
+      sessionSelect.addEventListener('change', (e) => {
+        const selectedSession = e.target.value;
+        const availableLocations = locations[selectedSession];
+
+        locationSelect.innerHTML = ''; // Clear previous options
+        if (availableLocations) {
+          locationGroup.style.display = 'block';
+          locationSelect.required = true;
+          
+          const defaultOption = document.createElement('option');
+          defaultOption.value = "";
+          defaultOption.textContent = "Choose a location...";
+          defaultOption.disabled = true;
+          defaultOption.selected = true;
+          locationSelect.appendChild(defaultOption);
+
+          availableLocations.forEach(loc => {
+            const option = document.createElement('option');
+            option.value = loc;
+            option.textContent = loc;
+            locationSelect.appendChild(option);
+          });
+        } else {
+          locationGroup.style.display = 'none';
+          locationSelect.required = false;
+        }
+      });
+
+      rsvpForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const formData = new FormData(rsvpForm);
+        const data = Object.fromEntries(formData.entries());
+        
+        console.log('RSVP Submitted:', data);
+
+        // Display success message
+        rsvpContainer.innerHTML = `
+          <div id="form-success-message">
+            <h4>Thank You, ${data.name}!</h4>
+            <p>Your RSVP has been received. We look forward to seeing you!</p>
+          </div>
+        `;
+      });
+
+    });
+  </script>
+
 </body>
 </html>

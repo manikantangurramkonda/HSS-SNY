@@ -1,5 +1,5 @@
 {
-  "name": "HSS Sun Salutation Marathon 2026",
-  "description": "A responsive flyer and informational page for the HSS 'Health for Humanity' Surya Namaskar Yajna (SNY) in Pittsburgh. Features an event schedule, location details, benefits, and an RSVP form.",
+  "name": "HSS Sun Salutation Marathon 2026 (Vanilla JS)",
+  "description": "A responsive single-page flyer for the HSS 'Health for Humanity' Surya Namaskar Yajna (SNY) in Pittsburgh, built with vanilla HTML, CSS, and JavaScript. Features an event schedule, countdown timer, and an RSVP form.",
   "requestFramePermissions": []
 }
