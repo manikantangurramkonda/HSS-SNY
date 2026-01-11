@@ -2,15 +2,14 @@
 import '@angular/compiler';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { provideZonelessChangeDetection } from '@angular/core';
-import { importProvidersFrom } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
 
-import { AppComponent } from './src/app.component';
+// Note the explicit file extension, which is needed for browser-native ESM.
+// You will need to rename 'src/app.component.ts' to 'src/app.component.js' for this to work on GitHub Pages.
+import { AppComponent } from './src/app.component.ts';
 
 bootstrapApplication(AppComponent, {
   providers: [
-    provideZonelessChangeDetection(),
-    importProvidersFrom(ReactiveFormsModule)
+    provideZonelessChangeDetection()
   ]
 }).catch(err => console.error(err));
 

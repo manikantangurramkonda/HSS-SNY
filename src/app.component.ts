@@ -1,28 +1,23 @@
 
-import { Component, ChangeDetectionStrategy, signal, OnInit, OnDestroy, computed } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormBuilder, Validators, FormGroup } from '@angular/forms';
-
-interface Countdown {
-  days: number;
-  hours: number;
-  minutes: number;
-  seconds: number;
-}
+import { Component, ChangeDetectionStrategy, signal, computed, inject } from '@angular/core';
+import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [ReactiveFormsModule] // Import for form directives
 })
-export class AppComponent implements OnInit, OnDestroy {
-  private timerId: any;
-  private kickoffDate = new Date('2026-01-14T00:00:00');
+export class AppComponent {
+  fb = inject(FormBuilder);
+  
+  timerId;
+  kickoffDate = new Date('2026-01-14T00:00:00');
 
-  countdown = signal<Countdown>({ days: 0, hours: 0, minutes: 0, seconds: 0 });
-  formSubmissionStatus = signal<'idle' | 'submitted' | 'error'>('idle');
-  rsvpForm: FormGroup;
+  countdown = signal({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+  formSubmissionStatus = signal('idle');
+  rsvpForm;
   
   marathonLocations = ['North Park', 'Downtown Square', 'East Community Center', 'West Yoga Hub', 'South Beach Plaza'];
   communityYogaLocations = ['Grand Hall', 'Convention Center', 'University Arena', 'City Stadium', 'Waterfront Pavilion'];
@@ -38,7 +33,7 @@ export class AppComponent implements OnInit, OnDestroy {
     return [];
   });
 
-  constructor(private fb: FormBuilder) {
+  constructor() {
     this.rsvpForm = this.fb.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -46,15 +41,15 @@ export class AppComponent implements OnInit, OnDestroy {
       location: ['']
     });
 
-    this.rsvpForm.get('session')?.valueChanges.subscribe(value => {
+    this.rsvpForm.get('session').valueChanges.subscribe(value => {
       const locationControl = this.rsvpForm.get('location');
       if (value === 'Main Marathon' || value === 'Community Yoga') {
-        locationControl?.setValidators([Validators.required]);
+        locationControl.setValidators([Validators.required]);
       } else {
-        locationControl?.clearValidators();
+        locationControl.clearValidators();
       }
-      locationControl?.updateValueAndValidity();
-      locationControl?.reset();
+      locationControl.updateValueAndValidity();
+      locationControl.reset();
     });
   }
 
@@ -75,7 +70,9 @@ export class AppComponent implements OnInit, OnDestroy {
 
     if (distance < 0) {
       this.countdown.set({ days: 0, hours: 0, minutes: 0, seconds: 0 });
-      clearInterval(this.timerId);
+      if (this.timerId) {
+        clearInterval(this.timerId);
+      }
       return;
     }
 
@@ -96,13 +93,13 @@ export class AppComponent implements OnInit, OnDestroy {
       this.formSubmissionStatus.set('error');
       Object.keys(this.rsvpForm.controls).forEach(field => {
         const control = this.rsvpForm.get(field);
-        control?.markAsTouched({ onlySelf: true });
+        control.markAsTouched({ onlySelf: true });
       });
       setTimeout(() => this.formSubmissionStatus.set('idle'), 5000);
     }
   }
 
-  scrollTo(elementId: string): void {
+  scrollTo(elementId) {
     const element = document.getElementById(elementId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth', block: 'start' });
