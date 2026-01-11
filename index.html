@@ -391,9 +391,19 @@
         <h3>Event Schedule & Locations</h3>
         <div class="card-grid">
           <div class="card">
-            <h4>Main Marathon</h4>
+            <h4>Daily Online Practice</h4>
+            <p><strong>Jan 14 – Feb 1, 2026</strong></p>
+            <p>Join our free 20-minute online guided sessions to keep your practice consistent and energized.</p>
+            <ul>
+              <li><i data-lucide="clock"></i> 6:30 AM (Morning Flow)</li>
+              <li><i data-lucide="clock"></i> 6:00 PM (Evening Wind-down)</li>
+            </ul>
+            <a href="#" class="card-button">Join Now</a>
+          </div>
+          <div class="card">
+            <h4>Surya Namaskar Marathon</h4>
             <p><strong>Saturday, Jan 24, 2026</strong></p>
-            <p>Join fellow enthusiasts at various scenic locations across Pittsburgh for a collective Sun Salutation marathon.</p>
+            <p>Join fellow enthusiasts at various locations across Pittsburgh for a collective Sun Salutation marathon.</p>
             <ul>
               <li><i data-lucide="map-pin"></i> North Park</li>
               <li><i data-lucide="map-pin"></i> Downtown Square</li>
@@ -403,9 +413,9 @@
             </ul>
           </div>
           <div class="card">
-            <h4>Mega Community Yoga</h4>
+            <h4>Health for Humanity Events</h4>
             <p><strong>Saturday, Jan 31, 2026</strong></p>
-            <p>A massive, guided yoga session for all skill levels at high-capacity venues. Let's practice as one community!</p>
+            <p>A guided yoga sessions for all skill levels by Yoga teachers. Let's practice as one community!</p>
             <ul>
               <li><i data-lucide="map-pin"></i> Grand Hall</li>
               <li><i data-lucide="map-pin"></i> Convention Center</li>
@@ -413,16 +423,6 @@
               <li><i data-lucide="map-pin"></i> City Stadium</li>
               <li><i data-lucide="map-pin"></i> Waterfront Pavilion</li>
             </ul>
-          </div>
-          <div class="card">
-            <h4>Daily Online Practice</h4>
-            <p><strong>Jan 14 – Feb 1, 2026</strong></p>
-            <p>Join our free 20-minute online guided sessions to keep your practice consistent and energized.</p>
-            <ul>
-              <li><i data-lucide="clock"></i> 6:30 AM (Morning Flow)</li>
-              <li><i data-lucide="clock"></i> 6:30 PM (Evening Wind-down)</li>
-            </ul>
-            <a href="#" class="card-button">Join Now</a>
           </div>
         </div>
       </div>
@@ -457,7 +457,7 @@
         </div>
     </section>
 
-    <!-- RSVP Section -->
+    <!-- RSVP Section 
     <section id="rsvp">
       <div class="container">
         <h3>RSVP for an Event</h3>
@@ -483,14 +483,14 @@
             <div class="form-group" id="location-group" style="display: none;">
               <label for="location">Select Location</label>
               <select id="location" name="location">
-                <!-- Options will be populated by JS -->
+                <!!--- Options will be populated by JS --!->
               </select>
             </div>
             <button type="submit" class="submit-btn">Register</button>
           </form>
         </div>
       </div>
-    </section>
+    </section> -->
   </main>
 
   <footer>
@@ -507,7 +507,7 @@
       lucide.createIcons();
 
       // --- Countdown Timer Logic ---
-      const countdownDate = new Date('2026-01-14T00:00:00').getTime();
+      const countdownDate = new Date('2026-01-14T06:30:00').getTime();
 
       const timerInterval = setInterval(() => {
         const now = new Date().getTime();
