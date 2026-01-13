@@ -173,7 +173,7 @@
     }
     #about p {
       max-width: 800px;
-      margin: 0 auto;
+      margin: 0 auto 3rem;
       text-align: center;
       font-size: 1.1rem;
     }
@@ -238,6 +238,7 @@
       grid-template-columns: repeat(3, 1fr);
       gap: 2rem;
       margin-bottom: 3rem;
+      margin-top: 3rem;
     }
     .schedule-view {
       display: flex;
@@ -271,11 +272,7 @@
       }
     }
 
-    /* Participate Section */
-    #participate {
-        background: rgba(0,0,0,0.15);
-    }
-
+    /* Participate Section Grid (inside About) */
     .participation-grid {
       display: grid;
       gap: 2rem;
@@ -312,6 +309,7 @@
         display: flex;
         align-items: center;
         gap: 0.5rem;
+        color: var(--color-sun-yellow);
     }
     
     /* Footer */
@@ -419,7 +417,6 @@
         </button>
         <ul class="nav-links">
           <li><a href="#about">About</a></li>
-          <li><a href="#participate">Participate</a></li>
           <li><a href="#schedule">Events</a></li>
           <li><a href="#learn-more">Benefits</a></li>
           <li><a href="#footer">Contact</a></li>
@@ -443,18 +440,11 @@
       </div>
     </section>
 
-    <!-- About Section -->
+    <!-- About & Participate Section -->
     <section id="about">
       <div class="container">
         <h3>What is Surya Namaskar?</h3>
         <p>Surya Namaskar (Sun Salutation) is a sequence of 10 powerful yoga poses performed in a smooth flow. It is a complete practice that combines physical exercise, breathing and mind. The Surya Namaskar Yajna (SNY) is a 16-day event dedicated to promoting this healthy lifestyle, fostering community and collective well-being.</p>
-      </div>
-    </section>
-    
-    <!-- How to Participate Section -->
-    <section id="participate">
-      <div class="container">
-        <h3>Why & How to Participate</h3>
         <div class="participation-grid">
             <div class="card">
                 <h4>Why Participate?</h4>
@@ -491,7 +481,7 @@
         </div>
       </div>
     </section>
-
+    
     <!-- Schedule & Locations Section -->
     <section id="schedule">
       <div class="container">
