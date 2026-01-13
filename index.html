@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HSS Sun Salutation Marathon 2026</title>
+  <title>HSS Sun Salutation Yajna 2026</title>
   
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -59,6 +59,7 @@
 
     h2 { font-size: 2.5rem; }
     h3 { font-size: 2rem; color: var(--color-sun-yellow); margin-bottom: 2rem; text-align: center; }
+    h4 { font-size: 1.5rem; }
     
     /* Header & Navigation */
     header {
@@ -85,6 +86,16 @@
       color: var(--color-sun-yellow);
     }
     
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--color-light-text);
+      cursor: pointer;
+      padding: 0.5rem;
+      z-index: 1002;
+    }
+
     .nav-links {
       display: flex;
       list-style: none;
@@ -105,20 +116,6 @@
       color: var(--color-sun-yellow);
     }
 
-    .nav-links a.button {
-      background-color: var(--color-sun-orange);
-      color: white;
-      padding: 8px 20px;
-      border-radius: 50px;
-      transition: background-color 0.3s ease, transform 0.3s ease;
-    }
-
-    .nav-links a.button:hover {
-      background-color: #e07500;
-      color: white;
-      transform: scale(1.05);
-    }
-
     /* Hero Section */
     #hero {
       min-height: 100vh;
@@ -126,6 +123,7 @@
       align-items: center;
       justify-content: center;
       text-align: center;
+      padding-top: 70px; /* Offset for fixed header */
     }
 
     #hero h1 {
@@ -170,22 +168,17 @@
     }
 
     /* About Section */
+    #about {
+      background: rgba(0,0,0,0.15);
+    }
     #about p {
       max-width: 800px;
       margin: 0 auto;
       text-align: center;
       font-size: 1.1rem;
     }
-    #about {
-      background: rgba(0,0,0,0.15);
-    }
 
-    /* Cards (Used for Schedule & Benefits) */
-    .card-grid {
-      display: grid;
-      gap: 2rem;
-    }
-
+    /* Cards */
     .card {
       background: var(--color-glass-bg);
       backdrop-filter: blur(10px);
@@ -194,6 +187,8 @@
       border: 1px solid var(--color-glass-border);
       box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
       transition: transform 0.3s ease;
+      display: flex;
+      flex-direction: column;
     }
     .card:hover {
         transform: translateY(-5px);
@@ -201,147 +196,213 @@
     
     .card h4 {
         color: var(--color-sun-orange);
-        font-size: 1.5rem;
         margin-bottom: 0.5rem;
     }
-
-    /* Schedule Section */
-    #schedule .card-grid {
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    }
-    #schedule ul {
-        list-style: none;
-        margin-top: 1rem;
-    }
-    #schedule li {
-        display: flex;
-        align-items: center;
-        margin-bottom: 0.5rem;
-    }
-    #schedule i {
-        color: var(--color-sun-yellow);
-        margin-right: 0.75rem;
-    }
-    #schedule .card-button {
+    
+    .card-button {
       display: inline-block;
       margin-top: 1rem;
       background-color: var(--color-sun-orange);
-      color: white;
+      color: white !important; /* Ensure high contrast */
       padding: 10px 20px;
       border-radius: 5px;
       text-decoration: none;
       text-align: center;
       transition: background-color 0.3s;
     }
-    #schedule .card-button:hover {
+    .card-button:hover {
         background-color: #e07500;
     }
-    
-    /* Benefits Section */
-    #benefits {
-        background: rgba(0,0,0,0.15);
+
+    .card ul {
+        list-style: none;
+        margin-top: 1rem;
+        padding-left: 0;
+        text-align: left;
+        flex-grow: 1;
     }
-    #benefits .card-grid {
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-        text-align: center;
-    }
-    #benefits .icon-wrapper {
-        background: var(--color-sun-orange);
-        width: 80px;
-        height: 80px;
-        border-radius: 50%;
+    .card li {
         display: flex;
-        justify-content: center;
         align-items: center;
-        margin: 0 auto 1rem;
+        margin-bottom: 0.75rem;
     }
-    #benefits h4 {
-        color: var(--color-sun-orange);
-    }
-
-    /* RSVP Form */
-    #rsvp-form-container {
-      max-width: 600px;
-      margin: 0 auto;
-      background: var(--color-glass-bg);
-      backdrop-filter: blur(10px);
-      padding: 2.5rem;
-      border-radius: 1rem;
-      border: 1px solid var(--color-glass-border);
+    .card li i {
+        color: var(--color-sun-yellow);
+        margin-right: 0.75rem;
+        flex-shrink: 0;
     }
     
-    .form-group {
-      margin-bottom: 1.5rem;
+    /* Schedule Section Layout */
+    .schedule-views-container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-bottom: 3rem;
     }
-
-    .form-group label {
-      display: block;
-      margin-bottom: 0.5rem;
+    .schedule-view {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
     }
-
-    .form-group input,
-    .form-group select {
-      width: 100%;
-      padding: 0.75rem;
-      border-radius: 5px;
+    .schedule-view h4 {
+      text-align: center;
+      font-size: 1.5rem;
+      color: var(--color-sun-yellow);
+    }
+    .schedule-tile {
+      background: var(--color-glass-bg);
+      padding: 1rem;
+      border-radius: 0.75rem;
       border: 1px solid var(--color-glass-border);
-      background: rgba(0,0,0,0.2);
-      color: var(--color-light-text);
+      font-size: 0.9rem;
+    }
+    .schedule-tile h5 {
+      color: var(--color-sun-orange);
       font-size: 1rem;
     }
+    .schedule-tile p { margin: 0.25rem 0; }
     
-    .form-group select option {
-        background: var(--color-deep-blue);
+    @media (max-width: 992px) {
+      .schedule-views-container {
+        grid-template-columns: 1fr;
+      }
+      .schedule-view {
+          margin-bottom: 2rem;
+      }
     }
 
-    .form-group input:focus,
-    .form-group select:focus {
-      outline: none;
-      box-shadow: 0 0 0 2px var(--color-sun-orange);
-    }
-    
-    .submit-btn {
-      width: 100%;
-      padding: 1rem;
-      border: none;
-      border-radius: 5px;
-      background: var(--color-sun-orange);
-      color: white;
-      font-size: 1.1rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-    
-    .submit-btn:hover {
-      background: #e07500;
-    }
-    
-    #form-success-message {
-        text-align: center;
-        padding: 2rem;
-    }
-    #form-success-message h4 {
-        color: var(--color-sun-yellow);
-        font-size: 1.5rem;
+    /* Participate Section */
+    #participate {
+        background: rgba(0,0,0,0.15);
     }
 
+    .participation-grid {
+      display: grid;
+      gap: 2rem;
+      grid-template-columns: 1fr;
+    }
+
+    @media (min-width: 768px) {
+      .participation-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .app-links {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .app-links .card-button {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 0; /* Override default margin */
+    }
+    
+    /* Learn More Section */
+    #learn-more .card-grid {
+        display: grid;
+        gap: 2rem;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+    #learn-more .card h4 {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
     /* Footer */
     footer {
-      background: rgba(13, 59, 102, 0.7);
-      text-align: center;
-      padding: 2rem 0;
+      background: #0d3b66;
+      padding: 4rem 0 2rem;
       margin-top: 4rem;
+      text-align: center;
     }
+    .footer-content {
+        display: grid;
+        gap: 2rem;
+        margin-bottom: 3rem;
+        text-align: center;
+    }
+     .footer-content h4 {
+        color: var(--color-sun-yellow);
+        margin-bottom: 1rem;
+     }
+    .footer-links a {
+        color: var(--color-light-text);
+        margin: 0 0.75rem;
+        transition: color 0.3s;
+    }
+    .footer-links a:hover {
+        color: var(--color-sun-orange);
+    }
+    .footer-contact a, .footer-coordinators a {
+        color: var(--color-light-text);
+        text-decoration: none;
+    }
+    .footer-contact a:hover, .footer-coordinators a:hover {
+        text-decoration: underline;
+    }
+    .footer-coordinators ul {
+        list-style: none;
+        padding: 0;
+    }
+    .footer-coordinators li {
+        margin-bottom: 0.5rem;
+    }
+    .footer-bottom {
+        border-top: 1px solid var(--color-sky-blue);
+        padding-top: 2rem;
+    }
+
+    @media(min-width: 768px) {
+        .footer-content {
+            grid-template-columns: repeat(3, 1fr);
+            text-align: left;
+        }
+    }
+
 
     /* Responsive Design */
     @media (max-width: 768px) {
       h2 { font-size: 2rem; }
       h3 { font-size: 1.75rem; }
-      nav { flex-direction: column; height: auto; padding: 1rem 0; }
-      .nav-links { flex-direction: column; text-align: center; width: 100%; }
-      .nav-links li { margin: 10px 0; }
-      #hero { padding-top: 120px; }
+      
+      .menu-toggle {
+        display: block;
+      }
+      
+      .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 100%;
+        height: 100vh;
+        background: rgba(13, 59, 102, 0.95);
+        backdrop-filter: blur(10px);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        transition: right 0.35s ease-in-out;
+        z-index: 1001;
+      }
+      
+      .nav-links.active {
+        right: 0;
+      }
+      
+      .nav-links li {
+        margin: 1.5rem 0;
+      }
+      
+      .nav-links a {
+        font-size: 1.25rem;
+      }
+
       section { padding: 4rem 0; }
     }
   </style>
@@ -351,12 +412,17 @@
   <header>
     <div class="container">
       <nav>
-        <div class="logo">HSS SNY 2026</div>
+        <div class="logo">HSS SNY</div>
+        <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+          <i data-lucide="menu" class="menu-icon-open"></i>
+          <i data-lucide="x" class="menu-icon-close" style="display: none;"></i>
+        </button>
         <ul class="nav-links">
           <li><a href="#about">About</a></li>
-          <li><a href="#schedule">Schedule</a></li>
-          <li><a href="#benefits">Benefits</a></li>
-          <li><a href="#rsvp" class="button">RSVP</a></li>
+          <li><a href="#participate">Participate</a></li>
+          <li><a href="#schedule">Events</a></li>
+          <li><a href="#learn-more">Benefits</a></li>
+          <li><a href="#footer">Contact</a></li>
         </ul>
       </nav>
     </div>
@@ -366,8 +432,8 @@
     <!-- Hero Section -->
     <section id="hero">
       <div class="container">
-        <h1><span class="highlight">Sun Salutation</span> Marathon 2026</h1>
-        <p>Join Pittsburgh in a 16-day journey of health and wellness for body, mind, and spirit.</p>
+        <h1><span class="highlight">Surya Namaskar</span> Yajna 2026</h1>
+        <p>Join us for YOGA FOR HEALTH, HEALTH FOR HUMANITY from 14th January - 1st February 2026.</p>
         <div id="countdown">
           <div><span id="days">00</span><p>Days</p></div>
           <div><span id="hours">00</span><p>Hours</p></div>
@@ -380,128 +446,301 @@
     <!-- About Section -->
     <section id="about">
       <div class="container">
-        <h3>What is Surya Namaskar Yajna?</h3>
-        <p>The Surya Namaskar Yajna (SNY) is a 16-day event from January 14th to February 1st, dedicated to promoting a healthy lifestyle. Participants engage in the practice of Surya Namaskar, or Sun Salutations, a dynamic sequence of 10 yoga postures. This ancient practice is a holistic exercise that invigorates the body, calms the mind, and nurtures the spirit, fostering a sense of community and collective well-being.</p>
+        <h3>What is Surya Namaskar?</h3>
+        <p>Surya Namaskar (Sun Salutation) is a sequence of 10 powerful yoga poses performed in a smooth flow. It is a complete practice that combines physical exercise, breathing and mind. The Surya Namaskar Yajna (SNY) is a 16-day event dedicated to promoting this healthy lifestyle, fostering community and collective well-being.</p>
+      </div>
+    </section>
+    
+    <!-- How to Participate Section -->
+    <section id="participate">
+      <div class="container">
+        <h3>Why & How to Participate</h3>
+        <div class="participation-grid">
+            <div class="card">
+                <h4>Why Participate?</h4>
+                <ul>
+                    <li><i data-lucide="sun"></i> Introduce and practice Yoga in our daily lives.</li>
+                    <li><i data-lucide="book-open-check"></i> Learn simple asanas for physical and intellectual development.</li>
+                    <li><i data-lucide="leaf"></i> Lead a healthy lifestyle with peace, balance, and eternal bliss.</li>
+                    <li><i data-lucide="award"></i> Participating children will receive a certificate.</li>
+                    <li><i data-lucide="home"></i> Practice Surya Namaskar at home and track the count.</li>
+                    <li><i data-lucide="smartphone"></i> Enter the daily count in the mobile app.</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h4>How to Participate</h4>
+                <p>The SNY Mobile App is now LIVE! Please download it to track your progress and earn milestone badges (500, 1000, 2500, and 5000 SN)! Let’s get ready for the Jan 14th Kick-off!</p>
+                <div class="app-links">
+                    <a href="https://play.google.com/store/apps/details?id=com.atulsia.hssus" target="_blank" rel="noopener noreferrer" class="card-button">
+                    <i data-lucide="smartphone"></i> Android
+                    </a>
+                    <a href="https://apps.apple.com/us/app/hss-us/id1493411628" target="_blank" rel="noopener noreferrer" class="card-button">
+                    <i data-lucide="apple"></i> iOS
+                    </a>
+                    <a href="https://sny.hssus.org/" target="_blank" rel="noopener noreferrer" class="card-button">
+                    <i data-lucide="globe"></i> Web
+                    </a>
+                </div>
+                <h4 style="margin-top: 2rem;">Goals & Daily Routine</h4>
+                <ul>
+                    <li><i data-lucide="user"></i> <strong>Individual Goal:</strong> Perform 1 Surya Namaskar (SN) set and 5 Yogasanas daily.</li>
+                    <li><i data-lucide="calendar-check"></i> <strong>Weekly Target:</strong> Aim for 100+ Surya Namaskars per week.</li>
+                    <li><i data-lucide="phone"></i> <strong>Operational Rhythm:</strong> Encouraging daily calls at the Shakha and Gat-Pat levels to maintain momentum.</li>
+                </ul>
+            </div>
+        </div>
       </div>
     </section>
 
     <!-- Schedule & Locations Section -->
     <section id="schedule">
       <div class="container">
-        <h3>Event Schedule & Locations</h3>
-        <div class="card-grid">
-          <div class="card">
-            <h4>Daily Online Practice</h4>
-            <p><strong>Jan 14 – Feb 1, 2026</strong></p>
-            <p>Join our free 20-minute online guided sessions to keep your practice consistent and energized.</p>
-            <ul>
-              <li><i data-lucide="clock"></i> 6:30 AM (Morning Flow)</li>
-              <li><i data-lucide="clock"></i> 6:00 PM (Evening Wind-down)</li>
-            </ul>
-            <a href="#" class="card-button">Join Now</a>
+        <h3>2026 Marathon Event Schedule</h3>
+
+        <div class="schedule-views-container">
+          <!-- View 1: Weekly In-person Shakhas -->
+          <div class="schedule-view">
+            <h4>Weekly In-person Shakhas</h4>
+            <div class="schedule-tile">
+              <h5>Nalanda Shakha</h5>
+              <p>Fri, 7:00-8:30pm</p>
+              <p>Oak Ridge VFD, 1214 Oakridge Rd, McDonald, PA 15057</p>
+            </div>
+            <div class="schedule-tile">
+              <h5>Raghuveer Shakha</h5>
+              <p>Fri, 7:00-8:30pm</p>
+              <p>Marshall Elementary, Wexford, PA</p>
+            </div>
+            <div class="schedule-tile">
+              <h5>Ayyappa Shakha</h5>
+              <p>Fri, 7:00-8:30pm</p>
+              <p>Chinmaya Sanjeevani, 3817 Northern Pike, Monroeville, PA 15146</p>
+            </div>
+            <div class="schedule-tile">
+              <h5>Arjun Shakha</h5>
+              <p>Fri, 7:00-8:30pm</p>
+              <p>JCC South Hills, 345 Kane Blvd, Pittsburgh, PA 15243</p>
+            </div>
+            <div class="schedule-tile">
+              <h5>Veera Hanuman Shakha</h5>
+              <p>Fri, 7:00-8:30pm</p>
+              <p>School Gym, Fox Chapel, PA</p>
+            </div>
           </div>
-          <div class="card">
-            <h4>Surya Namaskar Marathon</h4>
-            <p><strong>Saturday, Jan 24, 2026</strong></p>
-            <p>Join fellow enthusiasts at various locations across Pittsburgh for a collective Sun Salutation marathon.</p>
-            <ul>
-              <li><i data-lucide="map-pin"></i> North Park</li>
-              <li><i data-lucide="map-pin"></i> Downtown Square</li>
-              <li><i data-lucide="map-pin"></i> East Community Center</li>
-              <li><i data-lucide="map-pin"></i> West Yoga Hub</li>
-              <li><i data-lucide="map-pin"></i> South Beach Plaza</li>
-            </ul>
+
+          <!-- View 2: Health for Humanity Yoga Dates -->
+          <div class="schedule-view">
+            <h4>Health for Humanity Yoga Dates</h4>
+            <div class="schedule-tile">
+              <h5>Fri, Jan 23, 2026</h5>
+              <p>5:30 PM - 7:00 PM</p>
+              <p>North Fayette Community Center</p>
+            </div>
+            <div class="schedule-tile">
+              <h5>Fri, Jan 30, 2026</h5>
+              <p>7:00 PM - 8:30 PM</p>
+              <p>JCC South Hills</p>
+            </div>
+            <div class="schedule-tile">
+              <h5>Date TBD</h5>
+              <p>Time TBD</p>
+              <p>Location TBD</p>
+            </div>
+             <div class="schedule-tile">
+              <h5>Date TBD</h5>
+              <p>Time TBD</p>
+              <p>Location TBD</p>
+            </div>
+             <div class="schedule-tile">
+              <h5>Date TBD</h5>
+              <p>Time TBD</p>
+              <p>Location TBD</p>
+            </div>
           </div>
-          <div class="card">
-            <h4>Health for Humanity Events</h4>
-            <p><strong>Saturday, Jan 31, 2026</strong></p>
-            <p>A guided yoga sessions for all skill levels by Yoga teachers. Let's practice as one community!</p>
-            <ul>
-              <li><i data-lucide="map-pin"></i> Grand Hall</li>
-              <li><i data-lucide="map-pin"></i> Convention Center</li>
-              <li><i data-lucide="map-pin"></i> University Arena</li>
-              <li><i data-lucide="map-pin"></i> City Stadium</li>
-              <li><i data-lucide="map-pin"></i> Waterfront Pavilion</li>
-            </ul>
+          
+          <!-- View 3: Surya Namaskar Marathon Dates -->
+          <div class="schedule-view">
+            <h4>Surya Namaskar Marathon Dates</h4>
+            <div class="schedule-tile">
+              <h5>Sun, Jan 18, 2026</h5>
+              <p>10am - 12pm</p>
+              <p>Scott Park Community Room</p>
+            </div>
+             <div class="schedule-tile">
+              <h5>Fri, Jan 23, 2026</h5>
+              <p>7pm - 8:30pm</p>
+              <p>Marshall Elementary School</p>
+            </div>
+            <div class="schedule-tile">
+              <h5>Fri, Jan 23, 2026</h5>
+              <p>Time TBD</p>
+              <p>Franklin Elementary School</p>
+            </div>
+            <div class="schedule-tile">
+              <h5>Sat, Jan 31, 2026</h5>
+              <p>9am - 1pm</p>
+              <p>Chinmaya Amarnath, Mars</p>
+            </div>
+            <div class="schedule-tile">
+              <h5>Sat, Jan 31, 2026</h5>
+              <p>9am - 1pm</p>
+              <p>Berkshire Community Hall</p>
+            </div>
           </div>
+        </div>
+
+        <div class="card">
+          <h4>Daily Online Practice</h4>
+          <p><strong>Jan 14 – Feb 1, 2026</strong> from 6:30 AM and 6:00 PM daily. Join our free online guided sessions to keep your practice consistent.</p>
+          <a href="https://link" target="_blank" rel="noopener noreferrer" class="card-button">Join Now</a>
         </div>
       </div>
     </section>
-    
-    <!-- Benefits Section -->
-    <section id="benefits">
+
+    <!-- Learn More Section (Benefits & Guidelines) -->
+    <section id="learn-more">
         <div class="container">
-            <h3>Key Benefits of Sun Salutations</h3>
+            <h3>Benefits &amp; Practice Guidelines</h3>
             <div class="card-grid">
                 <div class="card">
-                    <div class="icon-wrapper"><i data-lucide="heart-pulse"></i></div>
-                    <h4>Improves Cardiovascular Health</h4>
-                    <p>A great cardio workout that helps maintain a healthy heart.</p>
+                    <h4>Physical Benefits</h4>
+                    <ul>
+                        <li><i data-lucide="stretch-horizontal"></i> Improves flexibility & muscle strength</li>
+                        <li><i data-lucide="move-3d"></i> Enhances posture and balance</li>
+                        <li><i data-lucide="heater"></i> Boosts digestion and metabolism</li>
+                        <li><i data-lucide="heart-pulse"></i> Strengthens the heart and lungs</li>
+                    </ul>
                 </div>
                 <div class="card">
-                    <div class="icon-wrapper"><i data-lucide="shield"></i></div>
-                    <h4>Boosts Immunity</h4>
-                    <p>Enhances blood circulation, which helps in strengthening the immune system.</p>
+                    <h4>Mental Benefits</h4>
+                     <ul>
+                        <li><i data-lucide="brain-circuit"></i> Reduces stress and anxiety</li>
+                        <li><i data-lucide="target"></i> Improves focus and concentration</li>
+                        <li><i data-lucide="smile"></i> Brings calmness and emotional balance</li>
+                    </ul>
                 </div>
                 <div class="card">
-                    <div class="icon-wrapper"><i data-lucide="brain-circuit"></i></div>
-                    <h4>Reduces Stress</h4>
-                    <p>Calms the mind, reduces anxiety, and improves concentration.</p>
+                    <h4>Overall Wellness</h4>
+                    <ul>
+                        <li><i data-lucide="battery-charging"></i> Energizes the body</li>
+                        <li><i data-lucide="scale"></i> Helps maintain healthy weight</li>
+                        <li><i data-lucide="shield-check"></i> Brings calmness and emotional balance</li>
+                    </ul>
                 </div>
                 <div class="card">
-                    <div class="icon-wrapper"><i data-lucide="stretch-horizontal"></i></div>
-                    <h4>Enhances Flexibility</h4>
-                    <p>Stretches and tones muscles, improving overall body flexibility and posture.</p>
+                    <h4><i data-lucide="sunrise"></i>Best Time to Practice</h4>
+                     <ul>
+                        <li><i data-lucide="check-circle"></i> Early morning</li>
+                        <li><i data-lucide="check-circle"></i> Empty stomach</li>
+                        <li><i data-lucide="check-circle"></i> In a clean airy place</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4><i data-lucide="alert-triangle"></i>Precautions</h4>
+                     <ul>
+                        <li><i data-lucide="check-circle"></i> Practice slowly if you are a beginner</li>
+                        <li><i data-lucide="check-circle"></i> Avoid during fever or severe illness</li>
+                        <li><i data-lucide="check-circle"></i> Pregnant women should consult a doctor</li>
+                    </ul>
                 </div>
             </div>
         </div>
     </section>
-
-    <!-- RSVP Section 
-    <section id="rsvp">
-      <div class="container">
-        <h3>RSVP for an Event</h3>
-        <div id="rsvp-form-container">
-          <form id="event-rsvp-form">
-            <div class="form-group">
-              <label for="name">Full Name</label>
-              <input type="text" id="name" name="name" required>
-            </div>
-            <div class="form-group">
-              <label for="email">Email Address</label>
-              <input type="email" id="email" name="email" required>
-            </div>
-            <div class="form-group">
-              <label for="session">Select Session</label>
-              <select id="session" name="session" required>
-                <option value="" disabled selected>Choose an event...</option>
-                <option value="Main Marathon">Main Marathon (Jan 24)</option>
-                <option value="Community Yoga">Mega Community Yoga (Jan 31)</option>
-                <option value="Daily Online">Daily Online Practice</option>
-              </select>
-            </div>
-            <div class="form-group" id="location-group" style="display: none;">
-              <label for="location">Select Location</label>
-              <select id="location" name="location">
-                <!!--- Options will be populated by JS --!->
-              </select>
-            </div>
-            <button type="submit" class="submit-btn">Register</button>
-          </form>
-        </div>
-      </div>
-    </section> -->
+    
   </main>
 
-  <footer>
+  <footer id="footer">
     <div class="container">
-      <p>&copy; 2026 HSS Pittsburgh. All Rights Reserved.</p>
-      <p>Health for Humanity</p>
+      <div class="footer-content">
+          <div class="footer-contact">
+              <h4>Contact Us</h4>
+              <p>For general info, please contact Rammohan Ji or Sandesh Ji.</p>
+              <p><a href="mailto:sny@hssus.org">sny@hssus.org</a></p>
+          </div>
+          <div class="footer-coordinators">
+              <h4>Location Coordinators</h4>
+              <ul>
+                  <li><strong>Nalanda Shakha:</strong> Contact Name (123-456-7890)</li>
+                  <li><strong>Raghuveer Shakha:</strong> Contact Name (123-456-7890)</li>
+                  <li><strong>Ayyappa Shakha:</strong> Contact Name (123-456-7890)</li>
+                  <li><strong>Arjun Shakha:</strong> Contact Name (123-456-7890)</li>
+                  <li><strong>Veera Hanuman Shakha:</strong> Contact Name (123-456-7890)</li>
+              </ul>
+          </div>
+          <div class="footer-links">
+              <h4>For more details, visit:</h4>
+              <a href="https://www.sny.hssus.org" target="_blank" rel="noopener noreferrer" aria-label="SNY Website">
+                  <i data-lucide="globe"></i>
+              </a>
+              <a href="https://www.facebook.com/hssus" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                  <i data-lucide="facebook"></i>
+              </a>
+              <a href="https://www.twitter.com/hssusa" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+                  <i data-lucide="twitter"></i>
+              </a>
+          </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 HSS Pittsburgh. All Rights Reserved.</p>
+        <p>Health for Humanity</p>
+      </div>
     </div>
   </footer>
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
+    
+      // --- Mobile Navigation Toggle ---
+      const menuToggle = document.getElementById('menu-toggle');
+      const navLinks = document.querySelector('.nav-links');
+      const menuOpenIcon = document.querySelector('.menu-icon-open');
+      const menuCloseIcon = document.querySelector('.menu-icon-close');
+
+      if (menuToggle && navLinks) {
+        menuToggle.addEventListener('click', () => {
+          navLinks.classList.toggle('active');
+          const isActive = navLinks.classList.contains('active');
+          menuToggle.setAttribute('aria-expanded', isActive);
+
+          if (isActive) {
+            menuOpenIcon.style.display = 'none';
+            menuCloseIcon.style.display = 'block';
+          } else {
+            menuOpenIcon.style.display = 'block';
+            menuCloseIcon.style.display = 'none';
+          }
+        });
+      }
+
+      // --- Smooth Scrolling & Mobile Menu Close on Nav Link Click ---
+      navLinks.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault(); // Prevent default anchor behavior
+
+          const targetId = this.getAttribute('href');
+          const targetElement = document.querySelector(targetId);
+
+          if (targetElement) {
+            const headerHeight = 70; // Height of the fixed header
+            const elementPosition = targetElement.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - headerHeight;
+
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: 'smooth'
+            });
+          }
+          
+          // Close mobile nav menu if it's open
+          if (navLinks.classList.contains('active')) {
+            navLinks.classList.remove('active');
+            menuToggle.setAttribute('aria-expanded', 'false');
+            menuOpenIcon.style.display = 'block';
+            menuCloseIcon.style.display = 'none';
+          }
+        });
+      });
+
 
       // --- Lucide Icons Activation ---
       lucide.createIcons();
@@ -520,7 +759,7 @@
 
         if (distance < 0) {
           clearInterval(timerInterval);
-          document.getElementById('countdown').innerHTML = "<h2>The event has started!</h2>";
+          document.getElementById('countdown').innerHTML = "<h2>The Yajna has started!</h2>";
         } else {
           document.getElementById('days').innerText = days.toString().padStart(2, '0');
           document.getElementById('hours').innerText = hours.toString().padStart(2, '0');
@@ -528,62 +767,6 @@
           document.getElementById('seconds').innerText = seconds.toString().padStart(2, '0');
         }
       }, 1000);
-
-      // --- RSVP Form Logic ---
-      const rsvpForm = document.getElementById('event-rsvp-form');
-      const sessionSelect = document.getElementById('session');
-      const locationGroup = document.getElementById('location-group');
-      const locationSelect = document.getElementById('location');
-      const rsvpContainer = document.getElementById('rsvp-form-container');
-
-      const locations = {
-        'Main Marathon': ['North Park', 'Downtown Square', 'East Community Center', 'West Yoga Hub', 'South Beach Plaza'],
-        'Community Yoga': ['Grand Hall', 'Convention Center', 'University Arena', 'City Stadium', 'Waterfront Pavilion']
-      };
-
-      sessionSelect.addEventListener('change', (e) => {
-        const selectedSession = e.target.value;
-        const availableLocations = locations[selectedSession];
-
-        locationSelect.innerHTML = ''; // Clear previous options
-        if (availableLocations) {
-          locationGroup.style.display = 'block';
-          locationSelect.required = true;
-          
-          const defaultOption = document.createElement('option');
-          defaultOption.value = "";
-          defaultOption.textContent = "Choose a location...";
-          defaultOption.disabled = true;
-          defaultOption.selected = true;
-          locationSelect.appendChild(defaultOption);
-
-          availableLocations.forEach(loc => {
-            const option = document.createElement('option');
-            option.value = loc;
-            option.textContent = loc;
-            locationSelect.appendChild(option);
-          });
-        } else {
-          locationGroup.style.display = 'none';
-          locationSelect.required = false;
-        }
-      });
-
-      rsvpForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const formData = new FormData(rsvpForm);
-        const data = Object.fromEntries(formData.entries());
-        
-        console.log('RSVP Submitted:', data);
-
-        // Display success message
-        rsvpContainer.innerHTML = `
-          <div id="form-success-message">
-            <h4>Thank You, ${data.name}!</h4>
-            <p>Your RSVP has been received. We look forward to seeing you!</p>
-          </div>
-        `;
-      });
 
     });
   </script>
