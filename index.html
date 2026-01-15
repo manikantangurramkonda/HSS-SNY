@@ -49,7 +49,7 @@
     }
 
     section {
-      padding: 6rem 0;
+      padding: 3rem 0;
     }
 
     h1, h2, h3, h4 {
@@ -123,7 +123,7 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding-top: 70px; /* Offset for fixed header */
+      padding-top: 100px; /* Increased offset for fixed header */
     }
 
     #hero h1 {
@@ -350,6 +350,7 @@
     }
     .footer-coordinators li {
         margin-bottom: 0.5rem;
+        white-space: nowrap;
     }
     .footer-bottom {
         border-top: 1px solid var(--color-sky-blue);
@@ -431,13 +432,10 @@
       <div class="container">
         <h1><span class="highlight">Surya Namaskar</span> Yajna 2026</h1>
         <p>Join us for YOGA FOR HEALTH, HEALTH FOR HUMANITY from 14th January - 1st February 2026.</p>
-        <p>Let's begin this journey towards health and vitality together.
-We invite every member of the family to join the special " Laher " (Wave of Wellness) program <b>1/14/2026 evening @6PM</b>. Let's fill our screens with energy!</p>
-        <div id="countdown">
-          <div><span id="days">00</span><p>Days</p></div>
-          <div><span id="hours">00</span><p>Hours</p></div>
-          <div><span id="minutes">00</span><p>Minutes</p></div>
-          <div><span id="seconds">00</span><p>Seconds</p></div>
+        <div class="card">
+          <h4>Join Daily Online Practice</h4>
+          <p><strong>Jan 15 – Feb 1, 2026</strong> at 7:00 AM and 6:30 PM daily. We invite every member of the family to join our free online guided sessions to keep your practice consistent.</p>
+          <a href="https://tinyurl.com/pitt-sny2026" target="_blank" rel="noopener noreferrer" class="card-button">Join Now (Zoom link)</a>
         </div>
       </div>
     </section>
@@ -489,12 +487,6 @@ We invite every member of the family to join the special " Laher " (Wave of Well
     <section id="schedule">
       <div class="container">
         <h3>2026 Surya Namaskar Event Schedule</h3>
-        <div class="card">
-          <h4>Daily Online Practice</h4>
-          <p><strong>Jan 14</strong> at 6:00 PM to and 7:00 PM. Join our the special " Laher " (Wave of Wellness) program.</p>
-          <p><strong>Jan 15 – Feb 1, 2026</strong> at 7:00 AM and 6:30 PM daily. Join our free online guided sessions to keep your practice consistent.</p>
-          <a href="https://tinyurl.com/pitt-sny2026" target="_blank" rel="noopener noreferrer" class="card-button">Join Now (Zoom link)</a>
-        </div>
         <div class="schedule-views-container">
           <!-- View 1: Weekly In-person Practice -->
           <div class="schedule-view">
@@ -642,17 +634,17 @@ We invite every member of the family to join the special " Laher " (Wave of Well
       <div class="footer-content">
           <div class="footer-contact">
               <h4>Contact Us</h4>
-              <p>For general info, please contact Pravin Kulkarni.</p>
+              <p>For general info, please contact Pravin Kulkarni (412)576-4078.</p>
               <p><a href="mailto:sny@hssus.org">sny@hssus.org</a></p>
           </div>
           <div class="footer-coordinators">
               <h4>Location Coordinators</h4>
               <ul>
-                  <li><strong>Nalanda Shakha:</strong> Prathima  (123-456-7890)</li>
-                  <li><strong>Raghuveer Shakha:</strong> Contact Name (123-456-7890)</li>
-                  <li><strong>Ayyappa Shakha:</strong> Contact Name (123-456-7890)</li>
-                  <li><strong>Arjun Shakha:</strong> Contact Name (123-456-7890)</li>
+                  <li><strong>Arjun Shakha:</strong> Eeshan - (614) 615-4765</li>
+                  <li><strong>Nalanda Shakha:</strong> Prathima - (732) 890-2274</li>
+                  <li><strong>Raghuveer Shakha:</strong> Sandesh - (732) 715-1747</li>
                   <li><strong>Veera Hanuman Shakha:</strong> Contact Name (123-456-7890)</li>
+                  <li><strong>Ayyappa Shakha:</strong> Contact Name (123-456-7890)</li>
               </ul>
           </div>
           <div class="footer-links">
@@ -747,12 +739,12 @@ We invite every member of the family to join the special " Laher " (Wave of Well
 
         if (distance < 0) {
           clearInterval(timerInterval);
-          document.getElementById('countdown').innerHTML = "<h2>The Yajna has started!</h2>";
+          // document.getElementById('countdown').innerHTML = "<h2>The Yajna has started!</h2>";
         } else {
-          document.getElementById('days').innerText = days.toString().padStart(2, '0');
-          document.getElementById('hours').innerText = hours.toString().padStart(2, '0');
-          document.getElementById('minutes').innerText = minutes.toString().padStart(2, '0');
-          document.getElementById('seconds').innerText = seconds.toString().padStart(2, '0');
+          // document.getElementById('days').innerText = days.toString().padStart(2, '0');
+          // document.getElementById('hours').innerText = hours.toString().padStart(2, '0');
+          // document.getElementById('minutes').innerText = minutes.toString().padStart(2, '0');
+          // document.getElementById('seconds').innerText = seconds.toString().padStart(2, '0');
         }
       }, 1000);
 
